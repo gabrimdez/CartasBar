@@ -2,6 +2,9 @@
 dist/
 # generated types
 .astro/
+# generated QR codes (se regeneran con `npm run qr` / prebuild)
+public/qr/*
+!public/qr/.gitkeep
 
 # dependencies
 node_modules/
