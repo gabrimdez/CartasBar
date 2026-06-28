@@ -1,0 +1,94 @@
+{
+  "nombre": "Bar Paco",
+  "tema": {
+    "primario": "#b91c1c",
+    "fondo": "#fffdf7",
+    "texto": "#1f2937"
+  },
+  "contacto": {
+    "telefono": "986 12 34 56",
+    "direccion": "Rúa do Príncipe 12, Vigo",
+    "horario": "Mar–Dom 12:00–16:00 y 20:00–23:30"
+  },
+  "categorias": [
+    {
+      "nombre": "Para picar",
+      "platos": [
+        {
+          "nombre": "Croquetas caseras de jamón",
+          "descripcion": "Seis unidades, bechamel cremosa.",
+          "precio": 7.5,
+          "alergenos": ["gluten", "lacteos", "huevos"]
+        },
+        {
+          "nombre": "Mejillones al vapor",
+          "descripcion": "Con limón y laurel.",
+          "precio": 8,
+          "alergenos": ["moluscos", "sulfitos"]
+        },
+        {
+          "nombre": "Gambas al ajillo",
+          "precio": 9.5,
+          "alergenos": ["crustaceos"]
+        },
+        {
+          "nombre": "Tabla de quesos gallegos",
+          "descripcion": "Con membrillo y nueces.",
+          "precio": 11,
+          "alergenos": ["lacteos", "frutos-cascara", "sulfitos"]
+        }
+      ]
+    },
+    {
+      "nombre": "Platos principales",
+      "platos": [
+        {
+          "nombre": "Pulpo á feira",
+          "descripcion": "Con cachelos, pimentón y aceite de oliva.",
+          "precio": 16,
+          "alergenos": ["moluscos"]
+        },
+        {
+          "nombre": "Merluza a la gallega",
+          "descripcion": "Con patata, ajada y pimentón.",
+          "precio": 15.5,
+          "alergenos": ["pescado"]
+        },
+        {
+          "nombre": "Entrecot a la parrilla",
+          "descripcion": "Con guarnición de patatas y mostaza casera.",
+          "precio": 18,
+          "alergenos": ["mostaza", "sulfitos"]
+        },
+        {
+          "nombre": "Ensalada templada de garbanzos",
+          "descripcion": "Con sésamo, soja y verduras de temporada.",
+          "precio": 10.5,
+          "alergenos": ["sesamo", "soja"]
+        }
+      ]
+    },
+    {
+      "nombre": "Postres",
+      "platos": [
+        {
+          "nombre": "Tarta de Santiago",
+          "descripcion": "Receta tradicional de almendra.",
+          "precio": 5,
+          "alergenos": ["frutos-cascara", "huevos"]
+        },
+        {
+          "nombre": "Filloas con crema",
+          "descripcion": "Rellenas de crema pastelera.",
+          "precio": 5.5,
+          "alergenos": ["gluten", "lacteos", "huevos"]
+        },
+        {
+          "nombre": "Helado de turrón",
+          "precio": 4.5,
+          "alergenos": ["lacteos", "frutos-cascara", "soja"]
+        }
+      ]
+    }
+  ]
+}
