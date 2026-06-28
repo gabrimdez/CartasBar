@@ -1,0 +1,32 @@
+---
+import type { Categoria } from '../lib/menu';
+import Dish from './Dish.astro';
+
+interface Props {
+  categoria: Categoria;
+}
+
+const { categoria } = Astro.props;
+---
+
+<section class="category">
+  <h2 class="category-title">{categoria.nombre}</h2>
+  <div class="dishes">
+    {categoria.platos.map((plato) => <Dish plato={plato} />)}
+  </div>
+</section>
+
+<style>
+  .category {
+    margin-top: 1.75rem;
+  }
+
+  .category-title {
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid var(--c-primario);
+    color: var(--c-primario);
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+import type { AllergenId } from '../lib/allergens';
+import { ICONOS_ALERGENOS } from './allergen-icons/icons';
+
+interface Props {
+  id: AllergenId;
+}
+
+const { id } = Astro.props;
+const body = ICONOS_ALERGENOS[id];
+---
+
+<svg
+  class="allergen-icon"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  set:html={body}
+/>
+
+<style>
+  .allergen-icon {
+    display: block;
+    width: 1.1em;
+    height: 1.1em;
+    flex: none;
+  }
+</style>

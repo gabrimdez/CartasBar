@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MenuCategory from '../components/MenuCategory.astro';
+
+// Una página estática por bar; el slug es el nombre del archivo JSON.
+export async function getStaticPaths() {
+  const bars = await getCollection('bars');
+  return bars.map((bar) => ({
+    params: { slug: bar.id },
+    props: { bar },
+  }));
+}
+
+const { bar } = Astro.props;
+const { nombre, tema, contacto, categorias } = bar.data;
+
+const telHref = contacto?.telefono
+  ? `tel:${contacto.telefono.replace(/\s+/g, '')}`
+  : undefined;
+---
+
+<BaseLayout title={`Carta · ${nombre}`} tema={tema}>
+  <div class="page">
+    <header class="bar-header">
+      <h1 class="bar-name">{nombre}</h1>
+      {
+        contacto && (
+          <address class="bar-contact">
+            {contacto.direccion && <span>{contacto.direccion}</span>}
+            {telHref && <a href={telHref}>{contacto.telefono}</a>}
+            {contacto.horario && <span>{contacto.horario}</span>}
+          </address>
+        )
+      }
+    </header>
+
+    <main class="menu">
+      {categorias.map((categoria) => <MenuCategory categoria={categoria} />)}
+    </main>
+
+    <footer class="bar-footer">
+      <p>Alérgenos declarados según el Reglamento (UE) 1169/2011.</p>
+    </footer>
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    max-width: var(--max-w);
+    margin-inline: auto;
+    padding: 1.25rem 1rem 3rem;
+  }
+
+  .bar-header {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--c-primario);
+    text-align: center;
+  }
+
+  .bar-name {
+    color: var(--c-primario);
+    font-size: 1.6rem;
+  }
+
+  .bar-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-style: normal;
+    opacity: 0.85;
+  }
+
+  .bar-contact a {
+    color: var(--c-primario);
+    text-decoration: none;
+  }
+
+  .bar-footer {
+    margin-top: 2rem;
+    font-size: 0.75rem;
+    text-align: center;
+    opacity: 0.6;
+  }
+</style>

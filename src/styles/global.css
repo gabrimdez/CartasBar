@@ -1,0 +1,48 @@
+/*
+ * Estilos globales: reset mínimo + variables de tema.
+ * Los colores reales de cada bar llegan como CSS custom properties inyectadas
+ * por BaseLayout desde el JSON del bar; aquí solo hay valores por defecto.
+ */
+:root {
+  /* Tema por defecto (un bar siempre define los suyos en su JSON). */
+  --c-primario: #b91c1c;
+  --c-fondo: #ffffff;
+  --c-texto: #1f2937;
+
+  /* Derivados a partir del tema (se recalculan solos al cambiar el tema). */
+  --c-borde: color-mix(in srgb, var(--c-texto) 16%, transparent);
+  --c-tenue: color-mix(in srgb, var(--c-primario) 8%, transparent);
+
+  --max-w: 42rem;
+
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--c-fondo);
+  color: var(--c-texto);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--c-primario);
+}

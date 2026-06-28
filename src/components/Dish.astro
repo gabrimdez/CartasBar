@@ -1,0 +1,78 @@
+---
+import type { Plato } from '../lib/menu';
+import { formatPrecio } from '../lib/menu';
+import AllergenBadge from './AllergenBadge.astro';
+
+interface Props {
+  plato: Plato;
+}
+
+const { plato } = Astro.props;
+---
+
+<article class="dish">
+  <div class="dish-head">
+    <h3 class="dish-name">{plato.nombre}</h3>
+    <span class="dish-price">{formatPrecio(plato.precio)}</span>
+  </div>
+
+  {plato.descripcion && <p class="dish-desc">{plato.descripcion}</p>}
+
+  {
+    plato.alergenos.length > 0 && (
+      <ul class="dish-allergens" aria-label="Alérgenos">
+        {plato.alergenos.map((id) => (
+          <li>
+            <AllergenBadge id={id} />
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</article>
+
+<style>
+  .dish {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--c-borde);
+  }
+
+  .dish:last-child {
+    border-bottom: 0;
+  }
+
+  .dish-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .dish-name {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .dish-price {
+    flex: none;
+    font-weight: 700;
+    color: var(--c-primario);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .dish-desc {
+    margin-top: 0.2rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .dish-allergens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0.55rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>
