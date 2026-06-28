@@ -1,0 +1,26 @@
+{
+  "nombre": "Nombre del Bar",
+  "tema": {
+    "primario": "#b91c1c",
+    "fondo": "#ffffff",
+    "texto": "#1f2937"
+  },
+  "contacto": {
+    "telefono": "986 00 00 00",
+    "direccion": "Calle de ejemplo 1, Localidad",
+    "horario": "L–D 12:00–16:00 y 20:00–23:30"
+  },
+  "categorias": [
+    {
+      "nombre": "Categoría de ejemplo",
+      "platos": [
+        {
+          "nombre": "Plato de ejemplo",
+          "descripcion": "Descripción opcional del plato.",
+          "precio": 9.5,
+          "alergenos": ["gluten", "lacteos"]
+        }
+      ]
+    }
+  ]
+}

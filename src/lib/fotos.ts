@@ -1,4 +1,5 @@
 import type { ImageMetadata } from 'astro';
+import { slugify } from './slug.js';
 
 /**
  * Flujo automático de fotos de platos por convención de nombre.
@@ -22,17 +23,6 @@ const fotos = new Map<string, ImageMetadata>();
 for (const [ruta, mod] of Object.entries(modulos)) {
   const m = ruta.match(/\/src\/assets\/platos\/([^/]+)\/([^/]+)\.[^.]+$/);
   if (m) fotos.set(`${m[1]}/${m[2]}`, mod.default);
-}
-
-/** Normaliza un texto a slug: "Pulpo á feira" -> "pulpo-a-feira". */
-export function slugify(texto: string): string {
-  return texto
-    .normalize('NFD')
-    .replace(/\p{M}/gu, '') // quita los acentos (marcas combinantes)
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
 }
 
 /** Foto del plato si existe (buscada por el slug de su nombre), o undefined. */
