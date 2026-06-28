@@ -4,15 +4,16 @@ import Dish from './Dish.astro';
 
 interface Props {
   categoria: Categoria;
+  barSlug: string;
 }
 
-const { categoria } = Astro.props;
+const { categoria, barSlug } = Astro.props;
 ---
 
 <section class="category">
   <h2 class="category-title">{categoria.nombre}</h2>
   <div class="dishes">
-    {categoria.platos.map((plato) => <Dish plato={plato} />)}
+    {categoria.platos.map((plato) => <Dish plato={plato} barSlug={barSlug} />)}
   </div>
 </section>
 

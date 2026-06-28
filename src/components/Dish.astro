@@ -1,13 +1,19 @@
 ---
+import { Image } from 'astro:assets';
 import type { Plato } from '../lib/menu';
 import { formatPrecio } from '../lib/menu';
+import { getFotoPlato } from '../lib/fotos';
 import AllergenBadge from './AllergenBadge.astro';
 
 interface Props {
   plato: Plato;
+  barSlug: string;
 }
 
-const { plato } = Astro.props;
+const { plato, barSlug } = Astro.props;
+
+// Foto opcional por convención de nombre (ver src/lib/fotos.ts).
+const foto = getFotoPlato(barSlug, plato.nombre);
 ---
 
 <article class="dish">
@@ -27,6 +33,20 @@ const { plato } = Astro.props;
           </li>
         ))}
       </ul>
+    )
+  }
+
+  {
+    foto && (
+      <Image
+        class="dish-photo"
+        src={foto}
+        alt={`Foto de ${plato.nombre}`}
+        widths={[240, 480, 720]}
+        sizes="(max-width: 700px) 92vw, 640px"
+        loading="lazy"
+        decoding="async"
+      />
     )
   }
 </article>
@@ -74,5 +94,15 @@ const { plato } = Astro.props;
     margin: 0.55rem 0 0;
     padding: 0;
     list-style: none;
+  }
+
+  .dish-photo {
+    display: block;
+    width: 100%;
+    /* Banda compacta: alto acotado y recorte para que no domine la pantalla. */
+    height: clamp(150px, 42vw, 200px);
+    object-fit: cover;
+    margin-top: 0.65rem;
+    border-radius: 0.6rem;
   }
 </style>

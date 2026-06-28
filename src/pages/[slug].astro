@@ -36,7 +36,11 @@ const telHref = contacto?.telefono
     </header>
 
     <main class="menu">
-      {categorias.map((categoria) => <MenuCategory categoria={categoria} />)}
+      {
+        categorias.map((categoria) => (
+          <MenuCategory categoria={categoria} barSlug={bar.id} />
+        ))
+      }
     </main>
 
     <footer class="bar-footer">
