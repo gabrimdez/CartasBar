@@ -13,14 +13,23 @@ export async function getStaticPaths() {
 }
 
 const { bar } = Astro.props;
-const { nombre, tema, contacto, categorias } = bar.data;
+const { nombre, tema, contacto, categorias, logo } = bar.data;
 
 const telHref = contacto?.telefono
   ? `tel:${contacto.telefono.replace(/\s+/g, '')}`
   : undefined;
+
+const descripcion = `Carta de ${nombre} con todos sus platos, precios y alérgenos${
+  contacto?.direccion ? ` · ${contacto.direccion}` : ''
+}.`;
 ---
 
-<BaseLayout title={`Carta · ${nombre}`} tema={tema}>
+<BaseLayout
+  title={`Carta · ${nombre}`}
+  description={descripcion}
+  tema={tema}
+  image={logo}
+>
   <div class="page">
     <header class="bar-header">
       <h1 class="bar-name">{nombre}</h1>

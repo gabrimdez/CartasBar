@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Página no encontrada · Cartas Tejano"
+  description="La página que buscas no existe."
+>
+  <main class="notfound">
+    <p class="code">404</p>
+    <h1>No encontramos esta página</h1>
+    <p>Puede que el enlace esté mal escrito o que la carta ya no exista.</p>
+    <a class="home-link" href="/">Volver al inicio</a>
+  </main>
+</BaseLayout>
+
+<style>
+  .notfound {
+    max-width: var(--max-w);
+    margin-inline: auto;
+    padding: 4rem 1rem;
+    text-align: center;
+  }
+
+  .code {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--c-primario);
+    line-height: 1;
+  }
+
+  .notfound h1 {
+    margin-top: 0.5rem;
+    font-size: 1.4rem;
+  }
+
+  .notfound p {
+    margin-top: 0.5rem;
+    opacity: 0.8;
+  }
+
+  .home-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    background: var(--c-primario);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+  }
+</style>

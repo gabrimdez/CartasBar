@@ -1,20 +1,103 @@
 ---
-// Placeholder del Sprint 0. El índice real (listado de bares) se hace en el Sprint 5.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const bares = (await getCollection('bars')).sort((a, b) =>
+  a.data.nombre.localeCompare(b.data.nombre, 'es'),
+);
 ---
 
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Cartas Tejano</title>
-  </head>
-  <body>
-    <main>
+<BaseLayout
+  title="Cartas Tejano"
+  description="Cartas digitales con alérgenos para bares y restaurantes de la zona de Vigo."
+>
+  <main class="home">
+    <header class="home-header">
       <h1>Cartas Tejano</h1>
-      <p>Cartas digitales para bares y restaurantes. (En construcción)</p>
-    </main>
-  </body>
-</html>
+      <p>Cartas digitales con alérgenos para bares y restaurantes.</p>
+    </header>
+
+    {
+      bares.length > 0 ? (
+        <ul class="bar-list">
+          {bares.map((bar) => (
+            <li>
+              <a class="bar-card" href={`/${bar.id}`}>
+                <span class="bar-card-name">{bar.data.nombre}</span>
+                {bar.data.contacto?.direccion && (
+                  <span class="bar-card-dir">{bar.data.contacto.direccion}</span>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="vacio">Aún no hay cartas publicadas.</p>
+      )
+    }
+  </main>
+</BaseLayout>
+
+<style>
+  .home {
+    max-width: var(--max-w);
+    margin-inline: auto;
+    padding: 2rem 1rem 3rem;
+  }
+
+  .home-header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+
+  .home-header h1 {
+    color: var(--c-primario);
+    font-size: 1.8rem;
+  }
+
+  .home-header p {
+    margin-top: 0.35rem;
+    opacity: 0.8;
+  }
+
+  .bar-list {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .bar-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--c-borde);
+    border-radius: 0.7rem;
+    text-decoration: none;
+    color: var(--c-texto);
+    transition: border-color 0.15s ease;
+  }
+
+  .bar-card:hover,
+  .bar-card:focus-visible {
+    border-color: var(--c-primario);
+  }
+
+  .bar-card-name {
+    font-weight: 700;
+    color: var(--c-primario);
+    font-size: 1.1rem;
+  }
+
+  .bar-card-dir {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+
+  .vacio {
+    text-align: center;
+    opacity: 0.7;
+  }
+</style>

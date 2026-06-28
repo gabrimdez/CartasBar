@@ -3,19 +3,33 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
-  /** Colores del bar; se inyectan como CSS custom properties en <html>. */
-  tema: { primario: string; fondo: string; texto: string };
   description?: string;
+  /** Colores del bar; se inyectan como CSS custom properties en <html>. */
+  tema?: { primario: string; fondo: string; texto: string };
+  /** Imagen para Open Graph (ruta absoluta o relativa al sitio). */
+  image?: string;
 }
 
-const { title, tema, description } = Astro.props;
+const {
+  title,
+  description = 'Cartas digitales con alérgenos para bares y restaurantes de la zona de Vigo.',
+  tema,
+  image = '/og-default.png',
+} = Astro.props;
 
 // El tema del bar se aplica sin tocar componentes: estos solo usan var(--c-*).
-const temaVars = [
-  `--c-primario:${tema.primario}`,
-  `--c-fondo:${tema.fondo}`,
-  `--c-texto:${tema.texto}`,
-].join(';');
+const temaVars = tema
+  ? [
+      `--c-primario:${tema.primario}`,
+      `--c-fondo:${tema.fondo}`,
+      `--c-texto:${tema.texto}`,
+    ].join(';')
+  : undefined;
+
+// URLs absolutas para canónica y Open Graph (Astro.site = dominio de despliegue).
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+const themeColor = tema?.primario ?? '#b91c1c';
 ---
 
 <!doctype html>
@@ -24,10 +38,27 @@ const temaVars = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    {description && <meta name="description" content={description} />}
-    <meta name="theme-color" content={tema.primario} />
-    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonical} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content={themeColor} />
+
+    <!-- Open Graph (WhatsApp, Facebook…) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Cartas Tejano" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="generator" content={Astro.generator} />
   </head>
   <body>
     <slot />
